@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 50,
     alignSelf: "center",
-    color: "white",
   },
   row: {
     flex: 1,
@@ -22,7 +21,6 @@ const styles = StyleSheet.create({
   cell: {
     display: "flex",
     flex: 1,
-    color: "white",
   },
 });
 
