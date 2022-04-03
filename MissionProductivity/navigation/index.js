@@ -17,6 +17,7 @@ import { ColorSchemeName, Pressable } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import HomeScreen from "../screens/HomeScreen";
+import LeaderboardScreen from "../screens/LeaderboardScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
@@ -79,6 +80,14 @@ function BottomTabNavigator() {
         component={HomeScreen}
         options={{
           title: "Home Screen",
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Leaderboard"
+        component={LeaderboardScreen}
+        options={{
+          title: "Leaderboard",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

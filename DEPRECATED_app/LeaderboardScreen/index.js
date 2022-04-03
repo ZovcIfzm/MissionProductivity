@@ -1,22 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 
-import {View} from 'react-native';
+import { View } from "react-native";
 
-import {firebase} from '../firebase';
+import { firebase } from "../firebase";
 
-import Scoreboard from "../components/scoreboard"
+import Scoreboard from "../components/scoreboard";
 
 const LeaderboardScreen = () => {
-  useEffect(() => {
-    firebase.firestore().
-  }, []);
-  
+  useEffect(() => {}, []);
 
-  [scores, setScores] = useState()
+  [scores, setScores] = useState();
 
-  return <View>
-    <Scoreboard scores={scores}/>
-  </View>;
+  return (
+    <View>
+      <Scoreboard scores={scores} />
+    </View>
+  );
 };
 
 export default LeaderboardScreen;

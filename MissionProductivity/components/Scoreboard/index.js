@@ -1,22 +1,23 @@
-import React from 'react';
-import styles from './styles';
+import React from "react";
+import { View, Text } from "react-native";
+import styles from "./style";
 
-const Scoreboard = props => {
+const Scoreboard = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.column}>
-        <View style={styles.title}>Scoreboard</View>
+        <Text style={styles.title}>Scoreboard</Text>
         <View style={styles.row}>
-          <View style={styles.cell}>Rank</View>
-          <View style={styles.cell}>Name</View>
-          <View style={styles.cell}>Score</View>
+          <Text style={styles.cell}>Rank</Text>
+          <Text style={styles.cell}>Name</Text>
+          <Text style={styles.cell}>Score</Text>
         </View>
         {props.scores.map((item, i) => {
           return (
             <View style={styles.row}>
-              <View style={styles.cell}>{i + 1}</View>
-              <View style={styles.cell}>{item.name}</View>
-              <View style={styles.cell}>{item.score}</View>
+              <Text style={styles.cell}>{i + 1}</Text>
+              <Text style={styles.cell}>{item.name}</Text>
+              <Text style={styles.cell}>{item.score}</Text>
             </View>
           );
         })}
