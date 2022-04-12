@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import styles from "./style";
 
 const TrophyDisplay = (props) => {
@@ -9,49 +9,49 @@ const TrophyDisplay = (props) => {
           return (
             <View key={index}>
               {item.streak_lvl_1 ? (
-                <Text style={styles.trophy}>streak_day_1</Text>
+                <Image source={require('../../assets/images/streak-1.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!streak_day_1</Text>
+                <Image source={require('../../assets/images/streak-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
               {item.streak_lvl_2 ? (
-                <Text style={styles.trophy}>streak_day_2</Text>
+                <Image source={require('../../assets/images/streak-2.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!streak_day_2</Text>
+                <Image source={require('../../assets/images/streak-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
               {item.streak_lvl_3 ? (
-                <Text style={styles.trophy}>streak_day_3</Text>
+                <Image source={require('../../assets/images/streak-3.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!streak_day_3</Text>
+                <Image source={require('../../assets/images/streak-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
               {item.fitness_lvl_1 ? (
-                <Text style={styles.trophy}>fitness_lvl_1</Text>
+                <Image source={require('../../assets/images/fit-1.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!fitness_lvl_1</Text>
+                <Image source={require('../../assets/images/fit-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
               {item.fitness_lvl_2 ? (
-                <Text style={styles.trophy}>fitness_lvl_2</Text>
+                <Image source={require('../../assets/images/fit-2.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!fitness_lvl_2</Text>
+                <Image source={require('../../assets/images/fit-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
               {item.fitness_lvl_3 ? (
-                <Text style={styles.trophy}>fitness_lvl_3</Text>
+                <Image source={require('../../assets/images/fit-3.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!fitness_lvl_3</Text>
+                <Image source={require('../../assets/images/fit-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
               {item.mental_lvl_1 ? (
-                <Text style={styles.trophy}>mental_lvl_1</Text>
+                <Image source={require('../../assets/images/mental-1.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!mental_lvl_1</Text>
+                <Image source={require('../../assets/images/mental-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
               {item.mental_lvl_2 ? (
-                <Text style={styles.trophy}>mental_lvl_2</Text>
+                <Image source={require('../../assets/images/mental-2.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!mental_lvl_2</Text>
+                <Image source={require('../../assets/images/mental-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
               {item.mental_lvl_3 ? (
-                <Text style={styles.trophy}>mental_lvl_3</Text>
+                <Image source={require('../../assets/images/mental-3.png')} style={{width: 100 , height: 100 }}/>
               ) : (
-                <Text style={styles.trophy}>!mental_lvl_3</Text>
+                <Image source={require('../../assets/images/mental-locked.png')} style={{width: 100 , height: 100 }}/>
               )}
             </View>
           );

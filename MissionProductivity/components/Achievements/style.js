@@ -5,13 +5,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
     borderRadius: 6,
   },
   trophy: {
     flex: 1,
-    fontSize: 20
+    flexDirection: "row",
+    flexWrap: "wrap",
+    fontSize: 20,
+    width: 100,
+    height: 100,
   },
   title: {
     flex: 1,
