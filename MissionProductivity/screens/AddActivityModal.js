@@ -1,11 +1,11 @@
 import { TabRouter } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, Platform, StyleSheet, TextInput, Button, TouchableOpacity } from "react-native";
+import { Text, View, Platform, StyleSheet, TextInput, Button, TouchableOpacity, Alert } from "react-native";
 import { AirbnbRating } from 'react-native-ratings';
 import { route } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
-import submitActivity from '../components/AddActivity/submitActivity.js'
-import {Keyboard, TouchableWithoutFeedback} from 'react-native'
+import {submitActivity, checkInputs } from '../components/AddActivity/submitActivity.js';
+import {Keyboard, TouchableWithoutFeedback} from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 
 
@@ -62,7 +62,25 @@ const AddActivityModal = (props) => {
       <TouchableOpacity
         style={styles.addToDB}
           title="Submit Activity"
-          onPress={() => {submitActivity(name, category, 0, _values.hours, _values.mins, _values.rating); navigation.goBack(null)}}
+          onPress={() => {
+            let valid = false;
+            valid = checkInputs(name, category, 0, _values.hours, _values.mins, _values.rating);
+            if (valid) {
+              submitActivity(name, category, 0, _values.hours, _values.mins, _values.rating);
+              navigation.goBack(null);
+            }
+            else {
+              Alert.alert('Error Logging Activity', 'Please try again',
+              [
+                {
+                  text: "Go Back",
+                  onPress: () => navigation.goBack(null),
+                  style: "cancel"
+                },
+                { text: "Try Again" }
+              ]);
+            }
+          }}
       >
             <Text style={styles.buttonTextSubmit}>Submit Activity</Text>
       </TouchableOpacity>

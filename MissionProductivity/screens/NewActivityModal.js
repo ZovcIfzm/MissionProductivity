@@ -21,20 +21,6 @@ export default function NewActivityModal() {
 
   const navigation = useNavigation();
 
-  const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
@@ -101,11 +87,19 @@ export default function NewActivityModal() {
             let valid = checkInputs(_values.name, _values.category, 0, _values.hours, _values.mins, _values.rating);
             if (valid) {
               submitActivity(_values.name, _values.category, 0, _values.hours, _values.mins, _values.rating);
-              navigation.goBack(null); 
+              navigation.goBack(null);
             }
             else {
               console.log(valid);
-              createTwoButtonAlert;
+              Alert.alert('Error Creating Activity', 'Please try again',
+              [
+                {
+                  text: "Go Back",
+                  onPress: () => navigation.goBack(null),
+                  style: "cancel"
+                },
+                { text: "Try Again" }
+              ]);
             }
           }}
       >

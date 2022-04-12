@@ -2,13 +2,13 @@ import { collection, addDoc } from "firebase/firestore";
 import { View, StyleSheet, Button, Alert } from "react-native"; 
 import db from "../../firebase.js";
 
-export default async function submitActivity(name, category, ID, hours, mins, rating) {
+export async function submitActivity(name, category, ID, hours, mins, rating) {
     ID = parseInt(ID);
     hours = parseInt(hours);
     mins = parseInt(mins);
     rating = parseInt(rating);
     if (category === 'Both') {
-        category = "Mental & Physical Health"
+        category = "Mental & Physical Health";
     }
     if (rating === 0) {
         rating = 3;
