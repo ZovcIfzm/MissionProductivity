@@ -15,7 +15,7 @@ import HomeScreen from "../screens/HomeScreen";
 import LeaderboardScreen from "../screens/LeaderboardScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
+import TrophyScreen from "../screens/TrophyScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 
 export default function Navigation() {
@@ -85,10 +85,10 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
+        name="Trophies"
+        component={TrophyScreen}
         options={({ navigation }) => ({
-          title: "Tab One",
+          title: "Achievements",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
