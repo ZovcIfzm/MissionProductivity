@@ -1,11 +1,12 @@
 import { TabRouter } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, Platform, StyleSheet, TextInput, Button } from "react-native";
+import { Text, View, Platform, StyleSheet, TextInput, Button, TouchableOpacity } from "react-native";
 import { AirbnbRating } from 'react-native-ratings';
 import { route } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
 import submitActivity from '../components/AddActivity/submitActivity.js'
 import {Keyboard, TouchableWithoutFeedback} from 'react-native'
+import { Entypo } from '@expo/vector-icons'; 
 
 
 
@@ -23,7 +24,7 @@ const AddActivityModal = (props) => {
     <View style={styles.container}>
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.category}>{category}</Text>
-      <View style={styles.separator} />
+      <View style={styles.separator1} />
       <View style={styles.time}>
         <View style={styles.inputWrap}>
             <Text style={styles.label} >Hours</Text>
@@ -31,6 +32,7 @@ const AddActivityModal = (props) => {
                  keyboardType='numeric'
                  placeholder="0"
                  maxLength={2}
+                 placeholderTextColor = "black"
                  onChangeText={(val) => _values.hours = val}  
             />
         </View>
@@ -39,26 +41,31 @@ const AddActivityModal = (props) => {
             <Text style={styles.label}>Minutes</Text>
             <TextInput style={styles.inputMins}
                  keyboardType='numeric'
-                 placeholder="00"
-                 maxLength={2} 
+                 placeholderTextColor = "black"
+                 placeholder="0"
                  onChangeText={(val) => _values.mins = val}  
             />
         </View>
       </View>
-      <View style={styles.separator} />
+      <View style={styles.separator1} />
       <AirbnbRating
         showRating
         startingValue={(val) => _values.rating = val}
         onStartRating={(val) => _values.rating = val}
         onFinishRating={(val) => _values.rating = val}
+        selectedColor="#1CB8AE"
+        reviewColor="#1CB8AE"
       />
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
-      <Button
-        style={styles.submitButton}
-        title="Submit Activity"
-        onPress={() => {submitActivity(name, category, 0, _values.hours, _values.mins, _values.rating); navigation.goBack(null)}}
-        ></Button>
+      <View style={styles.separator2} />
+      <TouchableOpacity
+        style={styles.addToDB}
+          title="Submit Activity"
+          onPress={() => {submitActivity(name, category, 0, _values.hours, _values.mins, _values.rating); navigation.goBack(null)}}
+      >
+            <Text style={styles.buttonTextSubmit}>Submit Activity</Text>
+      </TouchableOpacity>
     </View>
     </TouchableWithoutFeedback>
   );
@@ -75,14 +82,19 @@ const styles = StyleSheet.create({
     paddingTop: 50
   },
   title: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
   },
   category: {
     paddingTop: 10,
     fontSize: 15,
   },
-  separator: {
+  separator1: {
+    marginVertical: 20,
+    height: 1,
+    height: "5%",
+  },
+  separator2: {
     marginVertical: 30,
     height: 1,
     height: "5%",
@@ -96,7 +108,8 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   inputWrap: {
     flex: 1,
@@ -117,10 +130,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#D3D3D3',
     width:"80%",
+    fontSize: 20,
+    textAlign: "center",
   },
   inputMins: {
     flex: 1,
     backgroundColor: '#D3D3D3',
     width:"80%",
+    fontSize: 20,
+    textAlign: "center",
+  },
+  addToDB: {
+    alignItems:'center',
+    justifyContent:'center',
+    width: "60%",
+    height: "10%",
+    backgroundColor:'#1CB8AE',
+    borderRadius:50,
+  },
+  buttonTextSubmit: {
+    color: "white",
+    fontSize:25,
   }
 });

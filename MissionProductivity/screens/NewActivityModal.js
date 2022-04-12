@@ -1,11 +1,11 @@
 import { TabRouter } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from 'react';
-import { Text, View, Platform, StyleSheet, TextInput, Button, Animated } from "react-native";
+import { Text, View, Platform, StyleSheet, TextInput, Button, Animated, TouchableOpacity, Alert } from "react-native";
 import { AirbnbRating } from 'react-native-ratings';
 import { route } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
-import submitActivity from '../components/AddActivity/submitActivity.js';
+import {submitActivity, checkInputs} from '../components/AddActivity/submitActivity.js';
 import {Keyboard, TouchableWithoutFeedback} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
 
@@ -16,42 +16,50 @@ export default function NewActivityModal() {
     rating: 0,
     name: '',
     category: 'Category'
-  } 
-  const cat = ["Mental", "Physical", "Both", "Other"]
-  const items = [
-    {id: 1, name: 'Mental'},
-    {id: 2, name: 'Physical'},
-    {id: 3, name: 'Both'},
-    {id: 4, name: 'Other'},
-  ];
+  }  
+  const cat = ["Mental Health", "Physical Health", "Both", "Other"];
 
   const navigation = useNavigation();
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Alert Title",
+      "My Alert Msg",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
         <TextInput style={styles.inputName}
-                 placeholder="Name"
+                 placeholder="Activity"
+                 placeholderTextColor = "black"
                  onChangeText={(val) => _values.name = val}  
         /> 
         <SelectDropdown
           data={cat}
+          defaultButtonText="Category"
           onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index)
             _values.category = selectedItem;
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
-            // text represented after item is selected
-            // if data array is an array of objects then return selectedItem.property to render after item is selected
             return selectedItem
           }}
           rowTextForSelection={(item, index) => {
-            // text represented for each item in dropdown
-            // if data array is an array of objects then return item.property to represent item in dropdown
             return item
           }}
+          buttonStyle={styles.catButton}
+          buttonTextStyle={styles.catButtonText}
         />
 
-      <View style={styles.separator} />
+      <View style={styles.separator1} />
       <View style={styles.time}>
         <View style={styles.inputWrap}>
             <Text style={styles.label} >Hours</Text>
@@ -59,6 +67,7 @@ export default function NewActivityModal() {
                  keyboardType='numeric'
                  placeholder="0"
                  maxLength={2}
+                 placeholderTextColor = "black"
                  onChangeText={(val) => _values.hours = val}  
             />
         </View>
@@ -67,31 +76,47 @@ export default function NewActivityModal() {
             <Text style={styles.label}>Minutes</Text>
             <TextInput style={styles.inputMins}
                  keyboardType='numeric'
-                 placeholder="00"
-                 maxLength={2} 
+                 placeholderTextColor = "black"
+                 placeholder="0"
                  onChangeText={(val) => _values.mins = val}  
             />
         </View>
       </View>
-      <View style={styles.separator} />
+      <View style={styles.separator1} />
       <AirbnbRating
         showRating
         startingValue={(val) => _values.rating = val}
         onStartRating={(val) => _values.rating = val}
         onFinishRating={(val) => _values.rating = val}
+        selectedColor="#1CB8AE"
+        reviewColor="#1CB8AE"
       />
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
-      <Button
-        style={styles.submitButton}
-        title="Submit Activity"
-        onPress={() => {let submitted = submitActivity(_values.name, _values.category, 0, _values.hours, _values.mins, _values.rating); if(submitted) {navigation.goBack(null)}}}
-        ></Button>
+      <View style={styles.separator2} />
+      <TouchableOpacity
+        style={styles.addToDB}
+          title="Submit Activity"
+          onPress={() => {
+            let valid = checkInputs(_values.name, _values.category, 0, _values.hours, _values.mins, _values.rating);
+            if (valid) {
+              submitActivity(_values.name, _values.category, 0, _values.hours, _values.mins, _values.rating);
+              navigation.goBack(null); 
+            }
+            else {
+              console.log(valid);
+              createTwoButtonAlert;
+            }
+          }}
+      >
+            <Text style={styles.buttonTextSubmit}>Submit Activity</Text>
+      </TouchableOpacity>
     </View>
     </TouchableWithoutFeedback>
   );
 }
 
+//TODO, get logged in user
 
 const styles = StyleSheet.create({
   container: {
@@ -99,16 +124,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 50
   },
-  title: {
-    fontSize: 30,
+  inputName: {
+    backgroundColor: '#D3D3D3',
+    width: "70%",
+    fontSize: 40,
     fontWeight: "bold",
+    textAlign: "center"
   },
-  category: {
-    paddingTop: 10,
-    fontSize: 15,
+  separator1: {
+    marginVertical: 20,
+    height: 1,
+    height: "5%",
   },
-  separator: {
-    marginVertical: 30,
+  separator2: {
+    marginVertical: 20,
     height: 1,
     height: "5%",
   },
@@ -121,7 +150,8 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   inputWrap: {
     flex: 1,
@@ -142,18 +172,37 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#D3D3D3',
     width:"80%",
+    fontSize: 20,
+    textAlign: "center",
   },
   inputMins: {
     flex: 1,
     backgroundColor: '#D3D3D3',
     width:"80%",
+    fontSize: 20,
+    textAlign: "center",
   },
-  inputName: {
-    backgroundColor: '#D3D3D3',
-    width: "50%",
+  addToDB: {
+    alignItems:'center',
+    justifyContent:'center',
+    width: "60%",
+    height: "10%",
+    backgroundColor:'#1CB8AE',
+    borderRadius:50,
   },
-  drop: {
-    width: "50%",
-    paddingLeft: '25%',
-  }
+  catButton: {
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop: 20,
+    width: "40%",
+    height: "5%",
+    backgroundColor:'#D3D3D3',
+  },
+  catButtonText: {
+    fontSize: 15,
+  },
+  buttonTextSubmit: {
+    color: "white",
+    fontSize:25,
+  },
 });

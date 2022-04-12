@@ -29,7 +29,7 @@ const SearchBar = (props) => {
           }}
         />
         {props.clicked && (
-          <Entypo name="cross" size={20} color="black" style={{ padding: 1 }} onPress={() => {
+          <Entypo name="cross" size={25} color="black" style={{ padding: 1 }} onPress={() => {
               props.setSearchPhrase("")
           }}/>
         )}

@@ -4,6 +4,7 @@ import {
   Text,
   SafeAreaView,
   ActivityIndicator,
+  Button,
 } from "react-native";
 
 import List from "../components/AddActivity/List";
@@ -11,15 +12,16 @@ import SearchBar from "../components/AddActivity/SearchBar";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import db from "../firebase.js";
 
-export default function Home({ navigation }) {
+export default function AddActivity({ navigation }) {
   //Inital Values
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
   const [data, setData] = useState();
   const tempData = [];
 
+  //TODO: Update logged in user
   useEffect(() => {
-    const q = query(collection(db, "activities"));
+    const q = query(collection(db, "activities"), where('userID', 'in', [-1, 0]));
     onSnapshot(q, (querySnapshot) => {
       const results = querySnapshot.docs.map((doc) => {
         const data = doc.data();
@@ -44,6 +46,10 @@ export default function Home({ navigation }) {
           }
         }
       }
+      //Alphabetically order tempData
+      tempData.sort(function(a,b) {
+        return compareStrings(a.name, b.name);
+      })
       setData(tempData);
     });
   }, []);
@@ -85,8 +91,14 @@ const styles = StyleSheet.create({
   },
 });
 
+function compareStrings(a, b) {
+  a = a.toLowerCase();
+  b = b.toLowerCase();
+
+  return (a < b) ? -1 : (a > b) ? 1 : 0;
+}
+
 
 
 //TODO:
-//Design (info icon, x icons, modal design, input database, submitted modal)
-//Figure our who is logged in
+//Figure our who is logged in (userID logic)

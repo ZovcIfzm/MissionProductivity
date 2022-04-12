@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-// definition of the Item, which will be rendered in the FlatList
 const Item = ({ name, category, navigation }) => (
     <Pressable 
     onPress={() => navigation.navigate("Log Activity", {name: name, category: category})}
@@ -24,19 +23,15 @@ const Item = ({ name, category, navigation }) => (
     </Pressable>
 );
 
-// the filter
 const List = (props) => {
     const navigation = useNavigation();
     const renderItem = ({ item }) => {
-        // when no input, show all
         if (props.searchPhrase === "") {
             return <Item name={item.name} category={item.category} navigation={navigation}/>;
         }
-        // filter of the name
         if (item.name.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
             return <Item name={item.name} category={item.category} navigation={navigation}/>;
         }
-        // filter of the description
         if (item.category.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
             return <Item name={item.name} category={item.category} navigation={navigation}/>;
         }
@@ -63,7 +58,7 @@ export default List;
 
 const styles = StyleSheet.create({
     list__container: {
-        margin: 10,
+        margin: 5,
         height: "85%",
         width: "100%",
     },
@@ -73,12 +68,13 @@ const styles = StyleSheet.create({
         borderBottomColor: "lightgrey"
     },
     title: {
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: "bold",
         marginBottom: 5,
     },
     cat: {
         paddingTop: 5,
-        fontSize: 13
+        fontSize: 15,
+        paddingBottom: 10
     }
 });
