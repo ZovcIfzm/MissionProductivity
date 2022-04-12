@@ -20,8 +20,25 @@ const Provider = (props) => {
     });
   }, []);
 
+  // This is a temporary hard-coded datastructure to mock up
+  // the user's unlocked trophies.
+  // Not sure how to look up queries in the database
+  const [trophies, setTrophies] = useState([
+    {
+      streak_lvl_1: true,
+      streak_lvl_2: true,
+      streak_lvl_3: false,
+      fitness_lvl_1: true,
+      fitness_lvl_2: true,
+      fitness_lvl_3: false,
+      mental_lvl_1: true,
+      mental_lvl_2: false,
+      mental_lvl_3: false
+    }
+  ]);
+
   return (
-    <Context.Provider value={{ scores: scores }}>
+    <Context.Provider value={{ scores: scores, trophies: trophies }}>
       {props.children}
     </Context.Provider>
   );

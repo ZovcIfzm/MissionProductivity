@@ -1,16 +1,21 @@
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
+import { Context } from "../context.js";
+import TrophyDisplay from "../components/Achievements";
 
 export default function TrophyScreen({ navigation }) {
+  const { trophies } = React.useContext(Context);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Your Achievements</Text>
       <View style={styles.separator} />
-      <EditScreenInfo path="/screens/TrophyScreen.tsx" />
+      <Text>Testing...</Text>
+      <TrophyDisplay trophies={trophies} />
     </View>
   );
 }
+// ToDo: Need to match logged in user to grab correct db entries
+
 
 const styles = StyleSheet.create({
   container: {
