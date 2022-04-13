@@ -13,7 +13,7 @@ import {
 
 import { Context } from "../context.js";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import Scoreboard from "../components/Scoreboard";
 
 import { Pressable } from "react-native";
@@ -77,18 +77,25 @@ const Leaderboard = (props) => {
           <Section title={`Let's see where you're at ${userName}!`} style={{ fontSize: 5 }}>
             Here is the leaderboard of this week's most productive users!
           </Section>
-          <Section title="Current Score">190 Points</Section>
-          <Section title="Current Streak">7 Days</Section>
+        </View>
+        <View style={styles.scoreBoard}>
+        <Scoreboard scores={scores} />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
+
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
+    marginTop: 22,
     paddingHorizontal: 24,
+  },
+  scoreBoard: {
+    fontSize: 500,
+    alignSelf: "stretch",
+    textAlign: "center",
   },
   sectionTitle: {
     fontSize: 25,
@@ -100,6 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "400",
     textAlign: "center",
+    paddingBottom: 20,
   },
   highlight: {
     fontWeight: "700",
@@ -108,14 +116,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "20%",
   },
-  signOutButton: {
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginVertical: 10,
-    alignSelf: "center",
-    textAlign: "center",
-  },
+  // signOutButton: {
+  //   borderWidth: 1,
+  //   borderRadius: 5,
+  //   paddingHorizontal: 10,
+  //   marginVertical: 10,
+  //   alignSelf: "center",
+  //   textAlign: "center",
+  // },
 });
 
 export default Leaderboard;

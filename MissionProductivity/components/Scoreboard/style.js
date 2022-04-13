@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: 6,
+    borderRadius: 20,
+    paddingTop: -50,
   },
   column: {
     flex: 1,
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
   cell: {
     display: "flex",
     flex: 1,
+    fontSize: 30,
   },
 });
 

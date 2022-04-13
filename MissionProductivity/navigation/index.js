@@ -20,10 +20,10 @@ import ModalScreen from "../screens/ModalScreen";
 import AddActivityModal from "../screens/AddActivityModal";
 import NewActivityModal from "../screens/NewActivityModal";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
+import TrophyScreen from "../screens/TrophyScreen";
 import LoginScreen from "../screens/LoginScreen";
 import HelpScreen from "../screens/HelpScreen";
+import Leaderboard from "../screens/Leaderboard";
 
 export default function Navigation() {
   return (
@@ -219,21 +219,21 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <FontAwesome name="table" color={color} size={30} />
           ),
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Help Screen")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <Feather
-                name="help-circle"
-                size={25}
-                color="white"
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate("Leaderboard Screen")}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}
+          //   >
+          //     <Feather
+          //       name="help-circle"
+          //       size={25}
+          //       color="white"
+          //       style={{ marginRight: 15 }}
+          //     />
+          //   </Pressable>
+          // ),
           headerStyle: {
             backgroundColor: "#1CB8AE",
           },
@@ -274,7 +274,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Achievements"
-        component={TabOneScreen}
+        component={TrophyScreen}
         options={({ navigation }) => ({
           title: "Achievements",
           headerTitleStyle: {
