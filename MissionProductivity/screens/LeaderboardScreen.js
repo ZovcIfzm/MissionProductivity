@@ -71,7 +71,7 @@ const Leaderboard = (props) => {
         <View
           style={{
             backgroundColor: Colors.white,
-            height: 800,
+            height: 100,
           }}
         >
           <Section title={`Let's see where you're at ${userName}!`} style={{ fontSize: 5 }}>
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 22,
     paddingHorizontal: 24,
+    marginBottom: 80,
   },
   scoreBoard: {
     fontSize: 500,
