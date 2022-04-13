@@ -81,7 +81,7 @@ const HomeScreen = (props) => {
             height: 800,
           }}
         >
-          <Section title={`Welcome! ${userName}`} style={{ fontSize: 5 }}>
+          <Section title={`Welcome ${userName}!`} style={{ fontSize: 5 }}>
             Mission Productivity users! Get ready to achieve your goals by
             competing with your friends. Keep your streak high and grow your
             score to win! For any questions refer to the help icon in the top
@@ -93,11 +93,6 @@ const HomeScreen = (props) => {
           >
             <Text>Sign Out</Text>
           </TouchableOpacity>
-          <Button title="Want to learn the basics?" style={{ fontSize: 5 }}>
-            1) Check out the leaderboard tab to see how your score competes
-            against your friends. You have a quick view below of your current
-            score!
-          </Button>
           <Section title="Current Score">190 Points</Section>
           <Section title="Current Streak">7 Days</Section>
         </View>

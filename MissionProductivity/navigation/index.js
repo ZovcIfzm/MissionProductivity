@@ -209,12 +209,35 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="Leaderboard"
         component={LeaderboardScreen}
-        options={{
+        options={({ navigation }) => ({
           title: "Leaderboard",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 20,
+            color: "white",
+          },
           tabBarIcon: ({ color }) => (
-            <Feather name="bar-chart" color={color} size={30} />
+            <FontAwesome name="table" color={color} size={30} />
           ),
-        }}
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("Help Screen")}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <Feather
+                name="help-circle"
+                size={25}
+                color="white"
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+          headerStyle: {
+            backgroundColor: "#1CB8AE",
+          },
+        })}
       />
       <BottomTab.Screen
         name="AddActivity"
@@ -238,6 +261,39 @@ function BottomTabNavigator() {
             >
               <AntDesign
                 name="pluscircle"
+                size={25}
+                color="white"
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+          headerStyle: {
+            backgroundColor: "#1CB8AE",
+          },
+        })}
+      />
+      <BottomTab.Screen
+        name="Achievements"
+        component={TabOneScreen}
+        options={({ navigation }) => ({
+          title: "Achievements",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 20,
+            color: "white",
+          },
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="trophy" color={color} size={30} />
+          ),
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("Help Screen")}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <Feather
+                name="help-circle"
                 size={25}
                 color="white"
                 style={{ marginRight: 15 }}
