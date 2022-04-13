@@ -4,6 +4,8 @@
  *
  */
 import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons'; 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -11,9 +13,12 @@ import * as React from "react";
 import { Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
+import AddActivity from "../screens/AddActivityScreen";
 import HomeScreen from "../screens/HomeScreen";
 import LeaderboardScreen from "../screens/LeaderboardScreen";
 import ModalScreen from "../screens/ModalScreen";
+import AddActivityModal from "../screens/AddActivityModal";
+import NewActivityModal from "../screens/NewActivityModal";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
@@ -47,6 +52,58 @@ function RootNavigator() {
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="Log Activity" component={AddActivityModal} options={({navigation}) => ({
+          title: "Add Activity",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+            color: "white"
+          },
+          headerStyle: {
+            backgroundColor: '#1CB8AE'
+         },
+         headerRight: () => (
+          <Pressable
+            onPress={() => navigation.navigate("AddActivity")}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1,
+            })}
+          >
+            <Feather
+              name="x-circle"
+              size={20}
+              color="white"
+              style={{ marginRight: 15 }}
+            />
+          </Pressable>
+        ),
+        })}/>
+        <Stack.Screen name="New Activity" component={NewActivityModal} options={({navigation}) => ({
+          title: "New Activity",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+            color: "white"
+          },
+          headerStyle: {
+            backgroundColor: '#1CB8AE'
+         },
+         headerRight: () => (
+          <Pressable
+            onPress={() => navigation.navigate("AddActivity")}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1,
+            })}
+          >
+            <Feather
+              name="x-circle"
+              size={20}
+              color="white"
+              style={{ marginRight: 15 }}
+            />
+          </Pressable>
+        ),
+        })}/>
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -115,10 +172,41 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
+      <BottomTab.Screen
+        name="AddActivity"
+        component={AddActivity}
+        options={({ navigation }) => ({
+          title: "Add Activity",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+            color: "white"
+          },
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("New Activity")}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <AntDesign
+                name="pluscircle"
+                size={25}
+                color="white"
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+          headerStyle: {
+            backgroundColor: '#1CB8AE'
+         }
+        })}
+      />
     </BottomTab.Navigator>
   );
 }
-
+//navigation.navigate("New Activity")
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
