@@ -9,8 +9,6 @@ import {
   View,
   Image,
   TextInput,
-  Alert,
-  StatusBar,
   Dimensions,
 } from "react-native";
 
@@ -19,23 +17,38 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 
 import { Context } from "../context.js";
 
+import { doc, setDoc } from "firebase/firestore";
+import db from "../firebase.js";
+
 var width = Dimensions.get("window").width; //full width
 const auth = getAuth();
 
-const signUp = (email, password) => {
-  if (email != "" && password != "") {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        console.log("User account created & signed in!");
+const signUp = async (email, password, username, setUserName) => {
+  if (email != "" && password != "" && username != "") {
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        const userRef = doc(db, "users", user["uid"]);
+        setDoc(userRef, { username: username });
       })
       .catch((error) => {
         const errorMessage = error.message;
         alert(errorMessage);
       });
+    await updateProfile(auth.currentUser, {
+      displayName: username,
+    }).then(() => {
+      setUserName(username);
+      console.log("username set to ", username);
+    });
+  } else {
+    alert("Must have email, password, and username filled out");
   }
 };
 
@@ -48,8 +61,12 @@ const signIn = (email, password) => {
     });
 };
 const LoginScreen = (props) => {
+  const [email, onChangeEmail] = React.useState("");
+  const [username, onChangeUsername] = React.useState("");
+  const [password, onChangePassword] = React.useState("");
+
   const [initializing, setInitializing] = useState(true);
-  const { user, setUser, userId, setUserId, userEmail, setUserEmail } =
+  const { setUser, setUserId, setUserEmail, setUserName, userName } =
     React.useContext(Context);
 
   const [signingUp, setSigningUp] = useState(false);
@@ -62,6 +79,9 @@ const LoginScreen = (props) => {
         setUser(user);
         setUserId(user["uid"]);
         setUserEmail(user["email"]);
+        if (!userName) {
+          setUserName(user["displayName"]);
+        }
         props.navigation.navigate("BottomTabNav");
       } else {
         // User is signed out
@@ -70,9 +90,6 @@ const LoginScreen = (props) => {
       if (initializing) setInitializing(false);
     });
   });
-
-  const [email, onChangeEmail] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
 
   if (initializing) return null;
 
@@ -96,6 +113,17 @@ const LoginScreen = (props) => {
             placeholder="enter email"
           />
         </View>
+        {signingUp ? (
+          <View style={styles.box}>
+            <Text>Username</Text>
+            <TextInput
+              style={styles.bubbleTextfield}
+              onChangeText={onChangeUsername}
+              value={username}
+              placeholder="enter username"
+            />
+          </View>
+        ) : null}
         <View style={styles.box}>
           <Text>Password</Text>
           <TextInput
@@ -109,7 +137,7 @@ const LoginScreen = (props) => {
           <>
             <TouchableOpacity
               style={styles.signInButton}
-              onPress={() => signUp(email, password)}
+              onPress={() => signUp(email, password, username, setUserName)}
             >
               <Text>Sign up</Text>
             </TouchableOpacity>

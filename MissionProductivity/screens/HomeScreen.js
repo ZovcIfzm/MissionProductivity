@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -47,7 +47,7 @@ const Section = ({ children, title }) => {
 };
 
 const HomeScreen = (props) => {
-  const { userEmail } = React.useContext(Context);
+  const { userName } = React.useContext(Context);
   const backgroundStyle = {
     backgroundColor: Colors.lighter,
   };
@@ -81,7 +81,7 @@ const HomeScreen = (props) => {
             height: 800,
           }}
         >
-          <Section title={`Welcome! ${userEmail}`} style={{ fontSize: 5 }}>
+          <Section title={`Welcome! ${userName}`} style={{ fontSize: 5 }}>
             Mission Productivity users! Get ready to achieve your goals by
             competing with your friends. Keep your streak high and grow your
             score to win! For any questions refer to the help icon in the top

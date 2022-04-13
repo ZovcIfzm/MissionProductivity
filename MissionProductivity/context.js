@@ -9,6 +9,7 @@ const Provider = (props) => {
   const [user, setUser] = useState();
   const [userId, setUserId] = useState();
   const [userEmail, setUserEmail] = useState();
+  const [userName, setUserName] = useState();
   useEffect(() => {
     const q = query(collection(db, "scores"), orderBy("score", "desc"));
     onSnapshot(q, (querySnapshot) => {
@@ -33,6 +34,8 @@ const Provider = (props) => {
         setUserId: setUserId,
         userEmail: userEmail,
         setUserEmail: setUserEmail,
+        userName: userName,
+        setUserName: setUserName,
       }}
     >
       {props.children}
