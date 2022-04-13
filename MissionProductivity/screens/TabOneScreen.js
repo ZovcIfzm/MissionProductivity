@@ -1,13 +1,15 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
-
-export default function TabOneScreen({ navigation }) {
+export default function NotFoundScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <Text style={styles.title}>This screen doesn't exist.</Text>
+      <TouchableOpacity
+        onPress={() => navigation.replace("Root")}
+        style={styles.link}
+      >
+        <Text style={styles.linkText}>Go to home screen!</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -17,14 +19,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    padding: 20,
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  link: {
+    marginTop: 15,
+    paddingVertical: 15,
+  },
+  linkText: {
+    fontSize: 14,
+    color: "#2e78b7",
   },
 });

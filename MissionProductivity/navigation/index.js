@@ -22,6 +22,7 @@ import NewActivityModal from "../screens/NewActivityModal";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
+import LoginScreen from "../screens/LoginScreen";
 
 export default function Navigation() {
   return (
@@ -130,6 +131,14 @@ function BottomTabNavigator() {
         component={HomeScreen}
         options={{
           title: "Home Screen",
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+        <BottomTab.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: "Login Screen",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
