@@ -6,12 +6,14 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
+  Button
 } from "react-native";
 
 import {
   Colors,
-  DebugInstructions,
   Header,
+  DebugInstructions,
   LearnMoreLinks,
   ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
@@ -58,26 +60,31 @@ const HomeScreen = () => {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}
       >
-        <Header />
+
+      <Image source={require('../assets/images/logo.png')} style={styles.headerImage} />
+
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            height: 800
           }}
         >
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
+          <Section title="Welcome!" style={{fontSize: 5}} >
+            Mission Productivity users! Get ready to achieve your goals by competing
+            with your friends. Keep your streak high and grow your score to win!
           </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
+          <Button title="Want to learn the basics?" style={{fontSize: 5}} >
+            1) Check out the leaderboard tab to see how your score competes against your friends. You have a quick view below 
+            of your current score!
+          </Button>
+          <Section title="Current Score">
+            190 Points
           </Section>
-          <Section title="Debug">
-            <DebugInstructions />
+          <Section title="Current Streak">
+            7 Days
           </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          
+          
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -90,17 +97,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 25,
     fontWeight: "600",
+    textAlign: "center",
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
     fontWeight: "400",
+    textAlign: "center",
   },
   highlight: {
     fontWeight: "700",
   },
+  headerImage: {
+    width: '100%',
+    height: '30%'
+  }
 });
 
 export default HomeScreen;
