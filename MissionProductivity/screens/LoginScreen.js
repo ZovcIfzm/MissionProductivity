@@ -45,7 +45,6 @@ const signUp = async (email, password, username, setUserName) => {
       displayName: username,
     }).then(() => {
       setUserName(username);
-      console.log("username set to ", username);
     });
   } else {
     alert("Must have email, password, and username filled out");
