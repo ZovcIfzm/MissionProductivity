@@ -1,11 +1,25 @@
 import { collection, addDoc } from "firebase/firestore";
 import { View, StyleSheet, Button, Alert } from "react-native"; 
 import db from "../../firebase.js";
+import React from 'react';
 
 export async function submitActivity(name, category, ID, hours, mins, rating) {
-    ID = parseInt(ID);
     hours = parseInt(hours);
     mins = parseInt(mins);
+    
+    if(isNaN(mins) && isNaN(hours)) {
+        minutes =  0;
+    }
+    else if(isNaN(mins)) {
+        minutes =  (hours * 60);
+    }
+    else if(isNaN(hours)) {
+        minutes =  mins;
+    }
+    else {
+        minutes = (hours * 60) + mins;
+    }
+    
     rating = parseInt(rating);
     if (category === 'Both') {
         category = "Mental & Physical Health";
@@ -23,7 +37,7 @@ export async function submitActivity(name, category, ID, hours, mins, rating) {
         minutes: (hours * 60) + mins,
         name: name,
         rating: rating,
-        userID: ID
+        userId: ID
     });
 }
 

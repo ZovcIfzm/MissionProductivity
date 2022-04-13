@@ -7,7 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 import {submitActivity, checkInputs } from '../components/AddActivity/submitActivity.js';
 import {Keyboard, TouchableWithoutFeedback} from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
-
+import { Context } from "../context.js";
+import React from 'react';
 
 
 const AddActivityModal = (props) => {
@@ -19,6 +20,7 @@ const AddActivityModal = (props) => {
     rating: 0
   } 
   const navigation = useNavigation();
+  const { userId } = React.useContext(Context);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
@@ -64,9 +66,9 @@ const AddActivityModal = (props) => {
           title="Submit Activity"
           onPress={() => {
             let valid = false;
-            valid = checkInputs(name, category, 0, _values.hours, _values.mins, _values.rating);
+            valid = checkInputs(name, category, userId, _values.hours, _values.mins, _values.rating);
             if (valid) {
-              submitActivity(name, category, 0, _values.hours, _values.mins, _values.rating);
+              submitActivity(name, category, userId, _values.hours, _values.mins, _values.rating);
               navigation.goBack(null);
             }
             else {

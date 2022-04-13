@@ -11,6 +11,7 @@ import List from "../components/AddActivity/List";
 import SearchBar from "../components/AddActivity/SearchBar";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import db from "../firebase.js";
+import { Context } from "../context.js";
 
 export default function AddActivity({ navigation }) {
   //Inital Values
@@ -18,10 +19,12 @@ export default function AddActivity({ navigation }) {
   const [clicked, setClicked] = useState(false);
   const [data, setData] = useState();
   const tempData = [];
+  const { userId } = React.useContext(Context);
+  console.log(userId);
 
   //TODO: Update logged in user
   useEffect(() => {
-    const q = query(collection(db, "activities"), where('userID', 'in', [-1, 0]));
+    const q = query(collection(db, "activities"), where('userId', 'in', ['-1', userId]));
     onSnapshot(q, (querySnapshot) => {
       const results = querySnapshot.docs.map((doc) => {
         const data = doc.data();
@@ -46,6 +49,8 @@ export default function AddActivity({ navigation }) {
           }
         }
       }
+      console.log(results);
+      console.log(tempData);
       //Alphabetically order tempData
       tempData.sort(function(a,b) {
         return compareStrings(a.name, b.name);

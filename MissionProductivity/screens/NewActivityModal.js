@@ -7,7 +7,8 @@ import { route } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
 import {submitActivity, checkInputs} from '../components/AddActivity/submitActivity.js';
 import {Keyboard, TouchableWithoutFeedback} from 'react-native';
-import SelectDropdown from 'react-native-select-dropdown'
+import SelectDropdown from 'react-native-select-dropdown';
+import { Context } from "../context.js";
 
 export default function NewActivityModal() {
   const _values = {
@@ -20,7 +21,7 @@ export default function NewActivityModal() {
   const cat = ["Mental Health", "Physical Health", "Both", "Other"];
 
   const navigation = useNavigation();
-
+  const { userId } = React.useContext(Context);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
@@ -84,9 +85,9 @@ export default function NewActivityModal() {
         style={styles.addToDB}
           title="Submit Activity"
           onPress={() => {
-            let valid = checkInputs(_values.name, _values.category, 0, _values.hours, _values.mins, _values.rating);
+            let valid = checkInputs(_values.name, _values.category, userId, _values.hours, _values.mins, _values.rating);
             if (valid) {
-              submitActivity(_values.name, _values.category, 0, _values.hours, _values.mins, _values.rating);
+              submitActivity(_values.name, _values.category, userId, _values.hours, _values.mins, _values.rating);
               navigation.goBack(null);
             }
             else {
