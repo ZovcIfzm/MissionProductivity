@@ -23,6 +23,7 @@ import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import LoginScreen from "../screens/LoginScreen";
+import HelpScreen from "../screens/HelpScreen";
 
 export default function Navigation() {
   return (
@@ -105,6 +106,32 @@ function RootNavigator() {
           </Pressable>
         ),
         })}/>
+        <Stack.Screen name="Help Screen" component={HelpScreen} options={({navigation}) => ({
+          title: "Help",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+            color: "white"
+          },
+          headerStyle: {
+            backgroundColor: '#1CB8AE'
+         },
+         headerRight: () => (
+          <Pressable
+            onPress={() => navigation.navigate("HomeScreen")}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1,
+            })}
+          >
+            <Feather
+              name="x-circle"
+              size={20}
+              color="white"
+              style={{ marginRight: 15 }}
+            />
+          </Pressable>
+        ),
+        })}/>
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -127,12 +154,35 @@ function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
-        options={{
+        options={({ navigation }) => ({
           title: "Home Screen",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+            color: "white"
+          },
+          tabBarIcon: ({ color }) => <FontAwesome name="home" color={color} size={30} />,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("Help Screen")}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <Feather
+                name="help-circle"
+                size={25}
+                color="white"
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+          headerStyle: {
+            backgroundColor: '#1CB8AE'
+         }
+        })}
       />
         <BottomTab.Screen
         name="Login"
@@ -147,38 +197,7 @@ function BottomTabNavigator() {
         component={LeaderboardScreen}
         options={{
           title: "Leaderboard",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }) => ({
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="bar-chart" color={color} size={30} />,
         }}
       />
       <BottomTab.Screen
@@ -191,7 +210,7 @@ function BottomTabNavigator() {
             fontSize: 20,
             color: "white"
           },
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="plus-circle" color={color} size={30}/>,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate("New Activity")}

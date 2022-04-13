@@ -72,19 +72,22 @@ const HomeScreen = () => {
             height: 800
           }}
         >
-          <Section title="Welcome!" style={{fontSize: 5}} >
-            Mission Productivity users! Get ready to achieve your goals by competing
-            with your friends. Keep your streak high and grow your score to win! For any questions refer
-            to the help icon in the top right corner.
+          <Section title="Tutorial" style={{fontSize: 5}} >
+            1) Our app contains four main tabs and features! You just left the main screen, this is where
+            you can get a quick rundown of your score and your current streak!{"\n"}{"\n"}
+
+            2) The next tab is the leaderboard! This is where you can see your score and how it compares to your peers!
+            Check the ranking and try to reach first place. That way you can fill up your trophy cabinet and get closer
+            to your goals!{"\n"}{"\n"}
+
+            3) Then we come to your trophy cabinet! This is where you can review your passed accomplishments and everything
+            you have achieved thus far.{"\n"}{"\n"}
+
+            4) Finally comes one of the most important tabs. The add activity tab! This is where you can go and add new 
+            activities that will be calculated into your score. The higher your streak, the greater the score! Try not 
+            to miss a day to stay ahead!{"\n"}{"\n"}
+
           </Section>
-          <Section title="Current Score">
-            190 Points
-          </Section>
-          <Section title="Current Streak">
-            7 Days
-          </Section>
-          
-          
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -93,7 +96,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
+    marginTop: 10,
     paddingHorizontal: 24,
   },
   sectionTitle: {
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 18,
     fontWeight: "400",
-    textAlign: "center",
+    textAlign: "left",
   },
   highlight: {
     fontWeight: "700",
