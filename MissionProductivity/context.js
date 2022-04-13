@@ -6,6 +6,9 @@ const Context = React.createContext();
 
 const Provider = (props) => {
   const [scores, setScores] = useState([]);
+  const [user, setUser] = useState();
+  const [userId, setUserId] = useState();
+  const [userEmail, setUserEmail] = useState();
   useEffect(() => {
     const q = query(collection(db, "scores"), orderBy("score", "desc"));
     onSnapshot(q, (querySnapshot) => {
@@ -21,7 +24,17 @@ const Provider = (props) => {
   }, []);
 
   return (
-    <Context.Provider value={{ scores: scores }}>
+    <Context.Provider
+      value={{
+        scores: scores,
+        user: user,
+        setUser: setUser,
+        userId: userId,
+        setUserId: setUserId,
+        userEmail: userEmail,
+        setUserEmail: setUserEmail,
+      }}
+    >
       {props.children}
     </Context.Provider>
   );

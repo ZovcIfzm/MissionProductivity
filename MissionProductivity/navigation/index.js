@@ -4,8 +4,8 @@
  *
  */
 import { FontAwesome } from "@expo/vector-icons";
-import { AntDesign } from '@expo/vector-icons'; 
-import { Feather } from '@expo/vector-icons'; 
+import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -43,7 +43,15 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Root"
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: "Login Screen",
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <Stack.Screen
+        name="BottomTabNav"
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
@@ -54,84 +62,96 @@ function RootNavigator() {
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
-        <Stack.Screen name="Log Activity" component={AddActivityModal} options={({navigation}) => ({
-          title: "Add Activity",
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontSize: 20,
-            color: "white"
-          },
-          headerStyle: {
-            backgroundColor: '#1CB8AE'
-         },
-         headerRight: () => (
-          <Pressable
-            onPress={() => navigation.navigate("AddActivity")}
-            style={({ pressed }) => ({
-              opacity: pressed ? 0.5 : 1,
-            })}
-          >
-            <Feather
-              name="x-circle"
-              size={20}
-              color="white"
-              style={{ marginRight: 15 }}
-            />
-          </Pressable>
-        ),
-        })}/>
-        <Stack.Screen name="New Activity" component={NewActivityModal} options={({navigation}) => ({
-          title: "New Activity",
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontSize: 20,
-            color: "white"
-          },
-          headerStyle: {
-            backgroundColor: '#1CB8AE'
-         },
-         headerRight: () => (
-          <Pressable
-            onPress={() => navigation.navigate("AddActivity")}
-            style={({ pressed }) => ({
-              opacity: pressed ? 0.5 : 1,
-            })}
-          >
-            <Feather
-              name="x-circle"
-              size={20}
-              color="white"
-              style={{ marginRight: 15 }}
-            />
-          </Pressable>
-        ),
-        })}/>
-        <Stack.Screen name="Help Screen" component={HelpScreen} options={({navigation}) => ({
-          title: "Help",
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontSize: 20,
-            color: "white"
-          },
-          headerStyle: {
-            backgroundColor: '#1CB8AE'
-         },
-         headerRight: () => (
-          <Pressable
-            onPress={() => navigation.navigate("HomeScreen")}
-            style={({ pressed }) => ({
-              opacity: pressed ? 0.5 : 1,
-            })}
-          >
-            <Feather
-              name="x-circle"
-              size={20}
-              color="white"
-              style={{ marginRight: 15 }}
-            />
-          </Pressable>
-        ),
-        })}/>
+        <Stack.Screen
+          name="Log Activity"
+          component={AddActivityModal}
+          options={({ navigation }) => ({
+            title: "Add Activity",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: 20,
+              color: "white",
+            },
+            headerStyle: {
+              backgroundColor: "#1CB8AE",
+            },
+            headerRight: () => (
+              <Pressable
+                onPress={() => navigation.navigate("AddActivity")}
+                style={({ pressed }) => ({
+                  opacity: pressed ? 0.5 : 1,
+                })}
+              >
+                <Feather
+                  name="x-circle"
+                  size={20}
+                  color="white"
+                  style={{ marginRight: 15 }}
+                />
+              </Pressable>
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="New Activity"
+          component={NewActivityModal}
+          options={({ navigation }) => ({
+            title: "New Activity",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: 20,
+              color: "white",
+            },
+            headerStyle: {
+              backgroundColor: "#1CB8AE",
+            },
+            headerRight: () => (
+              <Pressable
+                onPress={() => navigation.navigate("AddActivity")}
+                style={({ pressed }) => ({
+                  opacity: pressed ? 0.5 : 1,
+                })}
+              >
+                <Feather
+                  name="x-circle"
+                  size={20}
+                  color="white"
+                  style={{ marginRight: 15 }}
+                />
+              </Pressable>
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="Help Screen"
+          component={HelpScreen}
+          options={({ navigation }) => ({
+            title: "Help",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: 20,
+              color: "white",
+            },
+            headerStyle: {
+              backgroundColor: "#1CB8AE",
+            },
+            headerRight: () => (
+              <Pressable
+                onPress={() => navigation.navigate("HomeScreen")}
+                style={({ pressed }) => ({
+                  opacity: pressed ? 0.5 : 1,
+                })}
+              >
+                <Feather
+                  name="x-circle"
+                  size={20}
+                  color="white"
+                  style={{ marginRight: 15 }}
+                />
+              </Pressable>
+            ),
+          })}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -148,7 +168,7 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeScreen"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
@@ -159,11 +179,13 @@ function BottomTabNavigator() {
         options={({ navigation }) => ({
           title: "Home Screen",
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontWeight: "bold",
             fontSize: 20,
-            color: "white"
+            color: "white",
           },
-          tabBarIcon: ({ color }) => <FontAwesome name="home" color={color} size={30} />,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="home" color={color} size={30} />
+          ),
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate("Help Screen")}
@@ -180,24 +202,18 @@ function BottomTabNavigator() {
             </Pressable>
           ),
           headerStyle: {
-            backgroundColor: '#1CB8AE'
-         }
+            backgroundColor: "#1CB8AE",
+          },
         })}
-      />
-        <BottomTab.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          title: "Login Screen",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
       />
       <BottomTab.Screen
         name="Leaderboard"
         component={LeaderboardScreen}
         options={{
           title: "Leaderboard",
-          tabBarIcon: ({ color }) => <Feather name="bar-chart" color={color} size={30} />,
+          tabBarIcon: ({ color }) => (
+            <Feather name="bar-chart" color={color} size={30} />
+          ),
         }}
       />
       <BottomTab.Screen
@@ -206,11 +222,13 @@ function BottomTabNavigator() {
         options={({ navigation }) => ({
           title: "Add Activity",
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontWeight: "bold",
             fontSize: 20,
-            color: "white"
+            color: "white",
           },
-          tabBarIcon: ({ color }) => <Feather name="plus-circle" color={color} size={30}/>,
+          tabBarIcon: ({ color }) => (
+            <Feather name="plus-circle" color={color} size={30} />
+          ),
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate("New Activity")}
@@ -227,8 +245,8 @@ function BottomTabNavigator() {
             </Pressable>
           ),
           headerStyle: {
-            backgroundColor: '#1CB8AE'
-         }
+            backgroundColor: "#1CB8AE",
+          },
         })}
       />
     </BottomTab.Navigator>

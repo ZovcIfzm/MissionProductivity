@@ -1,119 +1,191 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import "./Header.css";
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
+  TouchableOpacity,
   StyleSheet,
   Text,
   View,
   Image,
+  TextInput,
+  Alert,
+  StatusBar,
+  Dimensions,
 } from "react-native";
 
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
+import { Context } from "../context.js";
 
-const Section = ({ children, title }) => {
-  const isDarkMode = false;
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}
-      >
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}
-      >
-        {children}
-      </Text>
-    </View>
-  );
+var width = Dimensions.get("window").width; //full width
+const auth = getAuth();
+
+const signUp = (email, password) => {
+  if (email != "" && password != "") {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        console.log("User account created & signed in!");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+  }
 };
 
-const LoginScreen = () => {
-  const isDarkMode = false;
+const signIn = (email, password) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {})
+    .catch((error) => {
+      const errorMessage = error.message;
+      alert(errorMessage);
+    });
+};
+const LoginScreen = (props) => {
+  const [initializing, setInitializing] = useState(true);
+  const { user, setUser, userId, setUserId, userEmail, setUserEmail } =
+    React.useContext(Context);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [signingUp, setSigningUp] = useState(false);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        setUser(user);
+        setUserId(user["uid"]);
+        setUserEmail(user["email"]);
+        props.navigation.navigate("BottomTabNav");
+      } else {
+        // User is signed out
+        setUser(undefined);
+      }
+      if (initializing) setInitializing(false);
+    });
+  });
+
+  const [email, onChangeEmail] = React.useState("");
+  const [password, onChangePassword] = React.useState("");
+
+  if (initializing) return null;
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}
-      >
-       <Image source={require('../assets/images/logo.png')} style={styles.headerImage} />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}
-        >
-          <Section title="Login To Your Account">
-            Login to your account or sign up for free!
-          </Section>
-          <Section title="Email">
-            Jack123
-          </Section>
-          <Section title="Password">
-            Michigan2023
-          </Section>
-          <Section title="Sign In">
-            Button
-          </Section>
-          <Section title="Sign Up">
-            Button
-          </Section>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Image
+          source={require("../assets/images/logo.png")}
+          style={styles.headerImage}
+        />
+        <Text style={styles.sectionTitle}>Login To Your Account</Text>
+        <Text style={styles.sectionDescription}>
+          Login to your account or sign up for free!
+        </Text>
+        <View style={styles.box}>
+          <Text>Email</Text>
+          <TextInput
+            style={styles.bubbleTextfield}
+            onChangeText={onChangeEmail}
+            value={email}
+            placeholder="enter email"
+          />
         </View>
+        <View style={styles.box}>
+          <Text>Password</Text>
+          <TextInput
+            style={styles.bubbleTextfield}
+            onChangeText={onChangePassword}
+            value={password}
+            placeholder="enter password"
+          />
+        </View>
+        {signingUp ? (
+          <>
+            <TouchableOpacity
+              style={styles.signInButton}
+              onPress={() => signUp(email, password)}
+            >
+              <Text>Sign up</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSigningUp(false)}>
+              <Text style={styles.newUser}>
+                Already have an account? Sign in!
+              </Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <TouchableOpacity
+              style={styles.signInButton}
+              onPress={() => signIn(email, password)}
+            >
+              <Text>Sign in</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => setSigningUp(true)}>
+              <Text style={styles.newUser}>New user? sign up!</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    flex: 1,
+    width: width,
+    backgroundColor: "white",
+  },
   sectionContainer: {
-    marginTop: "20%",
-    paddingBottom: "5%",
+    marginVertical: "5%",
     paddingHorizontal: 24,
   },
   sectionTitle: {
+    marginTop: 25,
+    color: "black",
     fontSize: 24,
-    position: "relative",
-    bottom: 40,
-    fontWeight: "600",
-    textAlign: "center",
   },
   sectionDescription: {
-    position: "relative",
-    bottom: 30,
+    marginBottom: 25,
+    color: "gray",
     fontSize: 18,
-    fontWeight: "400",
-    textAlign: "center"
-  },
-  highlight: {
-    fontWeight: "700",
   },
   headerImage: {
-    width: '100%',
-    height: '35%'
+    width: "100%",
+    height: "30%",
+  },
+  bubbleTextfield: {
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    fontSize: 14,
+    textAlign: "center",
+  },
+  box: {
+    marginVertical: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingVertical: 5,
+    alignItems: "center",
+    width: "90%",
+  },
+  signInButton: {
+    borderWidth: 1,
+    borderRadius: 10,
+    marginTop: 10,
+    paddingHorizontal: 80,
+    paddingVertical: 10,
+  },
+  newUser: {
+    color: "gray",
   },
 });
 
