@@ -101,7 +101,7 @@ const LoginScreen = (props) => {
         />
         <Text style={styles.sectionTitle}>Login To Your Account</Text>
         <Text style={styles.sectionDescription}>
-          Login to your account or sign up for free!
+          Login to your account or Sign up for free!
         </Text>
         <View style={styles.box}>
           <Text>Email</Text>
@@ -109,7 +109,7 @@ const LoginScreen = (props) => {
             style={styles.bubbleTextfield}
             onChangeText={onChangeEmail}
             value={email}
-            placeholder="enter email"
+            placeholder="Enter email"
           />
         </View>
         {signingUp ? (
@@ -119,7 +119,7 @@ const LoginScreen = (props) => {
               style={styles.bubbleTextfield}
               onChangeText={onChangeUsername}
               value={username}
-              placeholder="enter username"
+              placeholder="Enter username"
             />
           </View>
         ) : null}
@@ -129,7 +129,7 @@ const LoginScreen = (props) => {
             style={styles.bubbleTextfield}
             onChangeText={onChangePassword}
             value={password}
-            placeholder="enter password"
+            placeholder="Enter password"
           />
         </View>
         {signingUp ? (
@@ -156,7 +156,7 @@ const LoginScreen = (props) => {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setSigningUp(true)}>
-              <Text style={styles.newUser}>New user? sign up!</Text>
+              <Text style={styles.newUser}>New user? Sign up!</Text>
             </TouchableOpacity>
           </>
         )}

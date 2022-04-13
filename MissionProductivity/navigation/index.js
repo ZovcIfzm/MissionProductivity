@@ -240,39 +240,6 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="AddActivity"
-        component={AddActivity}
-        options={({ navigation }) => ({
-          title: "Add Activity",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 20,
-            color: "white",
-          },
-          tabBarIcon: ({ color }) => (
-            <Feather name="plus-circle" color={color} size={30} />
-          ),
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("New Activity")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <AntDesign
-                name="pluscircle"
-                size={25}
-                color="white"
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-          headerStyle: {
-            backgroundColor: "#1CB8AE",
-          },
-        })}
-      />
-      <BottomTab.Screen
         name="Achievements"
         component={TrophyScreen}
         options={({ navigation }) => ({
@@ -294,6 +261,39 @@ function BottomTabNavigator() {
             >
               <Feather
                 name="help-circle"
+                size={25}
+                color="white"
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+          headerStyle: {
+            backgroundColor: "#1CB8AE",
+          },
+        })}
+      />
+        <BottomTab.Screen
+        name="AddActivity"
+        component={AddActivity}
+        options={({ navigation }) => ({
+          title: "Add Activity",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 20,
+            color: "white",
+          },
+          tabBarIcon: ({ color }) => (
+            <Feather name="plus-circle" color={color} size={30} />
+          ),
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("New Activity")}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <AntDesign
+                name="pluscircle"
                 size={25}
                 color="white"
                 style={{ marginRight: 15 }}

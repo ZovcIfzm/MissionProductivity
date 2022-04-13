@@ -90,13 +90,8 @@ const Leaderboard = (props) => {
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 22,
-    paddingHorizontal: 24,
+    paddingHorizontal: 15,
     marginBottom: 80,
-  },
-  scoreBoard: {
-    fontSize: 500,
-    alignSelf: "stretch",
-    textAlign: "center",
   },
   sectionTitle: {
     fontSize: 25,
@@ -105,10 +100,11 @@ const styles = StyleSheet.create({
   },
   sectionDescription: {
     marginTop: 8,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "400",
     textAlign: "center",
     paddingBottom: 20,
+    
   },
   highlight: {
     fontWeight: "700",
@@ -117,14 +113,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "20%",
   },
-  // signOutButton: {
-  //   borderWidth: 1,
-  //   borderRadius: 5,
-  //   paddingHorizontal: 10,
-  //   marginVertical: 10,
-  //   alignSelf: "center",
-  //   textAlign: "center",
-  // },
+
 });
 
 export default Leaderboard;

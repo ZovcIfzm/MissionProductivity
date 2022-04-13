@@ -1,36 +1,35 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, StyleSheet } from "react-native";
 
-export default function NotFoundScreen({ navigation }) {
+import { Context } from "../context.js";
+// import TrophyDisplay from "../components/Achievements";
+
+export default function TrophyScreen({ navigation }) {
+  const { trophies } = React.useContext(Context);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>This screen doesn't exist.</Text>
-      <TouchableOpacity
-        onPress={() => navigation.replace("Root")}
-        style={styles.link}
-      >
-        <Text style={styles.linkText}>Go to home screen!</Text>
-      </TouchableOpacity>
+      <View style={styles.separator} />
+      {/* <Text>Testing...</Text> */}
+      <TrophyDisplay trophies={trophies} />
     </View>
   );
 }
+// ToDo: Need to match logged in user to grab correct db entries
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
   },
 });
