@@ -15,7 +15,8 @@ export async function submitActivity(name, category, ID, hours, mins, rating) {
     }
     //Make name always first letter upper rest lower
     name = titleCase(name);
-
+    //Remove all spaces from name
+    name = name.replace(/\s+/g, '');
     //Submit to DB
     await addDoc(collection(db, "activities"), {
         category: category,
