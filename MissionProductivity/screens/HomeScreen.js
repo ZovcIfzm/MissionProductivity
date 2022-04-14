@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -14,9 +14,9 @@ import {
 import { Context } from "../context.js";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { getAuth, signOut } from "firebase/auth";
-
-import { Pressable } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import db from "../firebase.js";
+// import * as firebase from 'firebase';
 
 const auth = getAuth();
 const Section = ({ children, title }) => {
@@ -47,7 +47,7 @@ const Section = ({ children, title }) => {
 };
 
 const HomeScreen = (props) => {
-  const { userName } = React.useContext(Context);
+  const { userName, userId } = React.useContext(Context);
   const backgroundStyle = {
     backgroundColor: Colors.lighter,
   };
@@ -62,6 +62,38 @@ const HomeScreen = (props) => {
         // An error happened.
       });
   };
+
+  // const q = query(collection(db, "scores"));
+
+  // onSnapshot(q, (querySnapshot) => {
+  //   const results = querySnapshot.docs.map((doc) => {
+  //     const data = doc.data();
+  //     return {
+  //       score: data.score,
+  //     };
+  //   });
+  //   console.log(results);
+  // });
+
+  const [data, setData] = useState();
+  const tempData = [];
+
+  const q = query(collection(db, "scores"), where('userID', '==', userId));
+
+    onSnapshot(q, (querySnapshot) => {
+    const results = querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+      tempData.push(data.score);
+      return {
+        score: data.score,
+      };
+    });
+    // console.log(results);
+    // console.log(tempData);
+    setData(tempData);
+  });
+
+
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -81,7 +113,7 @@ const HomeScreen = (props) => {
             height: 800,
           }}
         >
-          <Section title={`Welcome! ${userName}`} style={{ fontSize: 5 }}>
+          <Section title={`Welcome ${userName}!`} style={{ fontSize: 5 }}>
             Mission Productivity users! Get ready to achieve your goals by
             competing with your friends. Keep your streak high and grow your
             score to win! For any questions refer to the help icon in the top
@@ -93,12 +125,14 @@ const HomeScreen = (props) => {
           >
             <Text>Sign Out</Text>
           </TouchableOpacity>
-          <Button title="Want to learn the basics?" style={{ fontSize: 5 }}>
-            1) Check out the leaderboard tab to see how your score competes
-            against your friends. You have a quick view below of your current
-            score!
-          </Button>
-          <Section title="Current Score">190 Points</Section>
+
+
+          <Section title="Current Score">
+            {/* {tempData.map(score => <Text>{score}</Text>)} */}
+            <Text style={styles.sectionTitle}>{tempData[0]} </Text>
+            {/* {tempData[0]} */}
+            4
+          </Section>
           <Section title="Current Streak">7 Days</Section>
         </View>
       </ScrollView>
