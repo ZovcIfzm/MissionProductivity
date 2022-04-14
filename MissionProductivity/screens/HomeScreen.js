@@ -63,18 +63,6 @@ const HomeScreen = (props) => {
       });
   };
 
-  // const q = query(collection(db, "scores"));
-
-  // onSnapshot(q, (querySnapshot) => {
-  //   const results = querySnapshot.docs.map((doc) => {
-  //     const data = doc.data();
-  //     return {
-  //       score: data.score,
-  //     };
-  //   });
-  //   console.log(results);
-  // });
-
   const [data, setData] = useState();
   const tempData = [];
 
@@ -92,8 +80,6 @@ const HomeScreen = (props) => {
     // console.log(tempData);
     setData(tempData);
   });
-
-
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -129,9 +115,8 @@ const HomeScreen = (props) => {
 
           <Section title="Current Score">
             {/* {tempData.map(score => <Text>{score}</Text>)} */}
-            <Text style={styles.sectionTitle}>{tempData[0]} </Text>
+            {/* <Text style={styles.sectionTitle}>{tempData[0]} </Text> */}
             {/* {tempData[0]} */}
-            4
           </Section>
           <Section title="Current Streak">7 Days</Section>
         </View>

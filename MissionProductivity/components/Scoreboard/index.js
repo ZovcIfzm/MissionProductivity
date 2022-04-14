@@ -6,7 +6,7 @@ const Scoreboard = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.column}>
-        <Text style={styles.title}>Scoreboard</Text>
+        {/* <Text style={styles.title}>Scoreboard</Text> */}
         <View style={styles.row}>
           <Text style={styles.cell}>Rank</Text>
           <Text style={styles.cell}>Name</Text>

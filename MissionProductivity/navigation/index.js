@@ -20,10 +20,10 @@ import ModalScreen from "../screens/ModalScreen";
 import AddActivityModal from "../screens/AddActivityModal";
 import NewActivityModal from "../screens/NewActivityModal";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
+import TrophyScreen from "../screens/TrophyScreen";
 import LoginScreen from "../screens/LoginScreen";
 import HelpScreen from "../screens/HelpScreen";
+import Leaderboard from "../screens/Leaderboard";
 
 export default function Navigation() {
   return (
@@ -209,14 +209,70 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="Leaderboard"
         component={LeaderboardScreen}
-        options={{
+        options={({ navigation }) => ({
           title: "Leaderboard",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 20,
+            color: "white",
+          },
           tabBarIcon: ({ color }) => (
-            <Feather name="bar-chart" color={color} size={30} />
+            <FontAwesome name="table" color={color} size={30} />
           ),
-        }}
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate("Leaderboard Screen")}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}
+          //   >
+          //     <Feather
+          //       name="help-circle"
+          //       size={25}
+          //       color="white"
+          //       style={{ marginRight: 15 }}
+          //     />
+          //   </Pressable>
+          // ),
+          headerStyle: {
+            backgroundColor: "#1CB8AE",
+          },
+        })}
       />
       <BottomTab.Screen
+        name="Achievements"
+        component={TrophyScreen}
+        options={({ navigation }) => ({
+          title: "Achievements",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 20,
+            color: "white",
+          },
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="trophy" color={color} size={30} />
+          ),
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate("Help Screen")}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <Feather
+                name="help-circle"
+                size={25}
+                color="white"
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+          headerStyle: {
+            backgroundColor: "#1CB8AE",
+          },
+        })}
+      />
+        <BottomTab.Screen
         name="AddActivity"
         component={AddActivity}
         options={({ navigation }) => ({
