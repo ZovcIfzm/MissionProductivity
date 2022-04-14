@@ -64,22 +64,24 @@ const HomeScreen = (props) => {
       });
   };
 
-  // const [data, setData] = useState();
-  // const tempData = [];
+  const [data, setData] = useState([]);
+  const tempData = [];
 
-  // const q = query(collection(db, "scores"), where('userID', '==', userId));
+  useEffect(() => {
+    const q = query(collection(db, "scores"), where("userID", "==", userId));
 
-  //   onSnapshot(q, (querySnapshot) => {
-  //   const results = querySnapshot.docs.map((doc) => {
-  //     const data = doc.data();
-  //     tempData.push(data.score);
-  //     return {
-  //       score: data.score,
-  //     };
-  //   });
+    onSnapshot(q, (querySnapshot) => {
+      const results = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        tempData.push(data.score);
+        return {
+          score: data.score,
+        };
+      });
 
-  //   setData(tempData);
-  // });
+      setData(tempData);
+    });
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -112,12 +114,11 @@ const HomeScreen = (props) => {
             <Text>Sign Out</Text>
           </TouchableOpacity>
 
-
           <Section title="Current Score">
-            {/* {tempData.map(score => <Text style={{color:'#000000'}}>{score}</Text>)} */}
-            {/* <Text style={styles.sectionTitle}>{tempData[0]} </Text> */}
-            {/* {tempData[0]} */}
-
+            {data.map((score) => (
+              <Text style={{ color: "#000000" }}>{score}</Text>
+            ))}
+            <Text style={styles.sectionTitle}>{data[0]} </Text> *{data[0]} *
           </Section>
           <NameList />
           <Section title="Current Streak">7 Days</Section>
