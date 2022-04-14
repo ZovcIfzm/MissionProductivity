@@ -10,7 +10,7 @@ export default function TrophyScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.separator} />
       {/* <Text>Testing...</Text> */}
-      <TrophyDisplay trophies={trophies} />
+      {/* <TrophyDisplay trophies={trophies} /> */}
     </View>
   );
 }
