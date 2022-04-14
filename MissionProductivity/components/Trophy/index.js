@@ -11,7 +11,7 @@ const TrophyDisplay = (props) => {
               {/* <Text style={styles.title}>Streak</Text> */}
               <View style={styles.trophy_row}>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(streak_lvl_1) ? (
+                  {item.hasOwnProperty(t_100) ? (
                     <Image source={require('../../assets/images/streak-1.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/streak-locked.png')} style={{width: 100 , height: 100 }}/>
@@ -19,7 +19,7 @@ const TrophyDisplay = (props) => {
                   <Text>Streak Lv1</Text>
                 </View>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(streak_lvl_2) ? (
+                  {item.hasOwnProperty(t_200) ? (
                     <Image source={require('../../assets/images/streak-2.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/streak-locked.png')} style={{width: 100 , height: 100 }}/>
@@ -27,7 +27,7 @@ const TrophyDisplay = (props) => {
                   <Text>Streak Lv2</Text>
                 </View>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(streak_lvl_3) ? (
+                  {item.hasOwnProperty(t_300) ? (
                     <Image source={require('../../assets/images/streak-3.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/streak-locked.png')} style={{width: 100 , height: 100 }}/>
@@ -38,7 +38,7 @@ const TrophyDisplay = (props) => {
               {/* <Text style={styles.title}>Fitness</Text> */}
               <View style={styles.trophy_row}>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(fitness_lvl_1) ? (
+                  {item.hasOwnProperty(t_400) ? (
                     <Image source={require('../../assets/images/fit-1.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/fit-locked.png')} style={{width: 100 , height: 100 }}/>
@@ -46,7 +46,7 @@ const TrophyDisplay = (props) => {
                   <Text>Fitness Lv1</Text>
                 </View>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(fitness_lvl_2) ? (
+                  {item.hasOwnProperty(t_500) ? (
                     <Image source={require('../../assets/images/fit-2.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/fit-locked.png')} style={{width: 100 , height: 100 }}/>
@@ -54,7 +54,7 @@ const TrophyDisplay = (props) => {
                   <Text>Fitness Lv2</Text>
                 </View>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(fitness_lvl_3) ? (
+                  {item.hasOwnProperty(t_600) ? (
                     <Image source={require('../../assets/images/fit-3.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/fit-locked.png')} style={{width: 100 , height: 100 }}/>
@@ -65,7 +65,7 @@ const TrophyDisplay = (props) => {
               {/* <Text style={styles.title}>Mental</Text> */}
               <View style={styles.trophy_row}>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(mental_lvl_1) ? (
+                  {item.hasOwnProperty(t_700) ? (
                     <Image source={require('../../assets/images/mental-1.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/mental-locked.png')} style={{width: 100 , height: 100 }}/>
@@ -73,7 +73,7 @@ const TrophyDisplay = (props) => {
                   <Text>Mental Lv1</Text>
                 </View>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(mental_lvl_2) ? (
+                  {item.hasOwnProperty(t_800) ? (
                     <Image source={require('../../assets/images/mental-2.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/mental-locked.png')} style={{width: 100 , height: 100 }}/>
@@ -81,7 +81,7 @@ const TrophyDisplay = (props) => {
                   <Text>Mental Lv2</Text>
                 </View>
                 <View style={styles.trophy_slot}>
-                  {item.hasOwnProperty(mental_lvl_3) ? (
+                  {item.hasOwnProperty(t_900) ? (
                     <Image source={require('../../assets/images/mental-3.png')} style={{width: 100 , height: 100 }}/>
                   ) : (
                     <Image source={require('../../assets/images/mental-locked.png')} style={{width: 100 , height: 100 }}/>
