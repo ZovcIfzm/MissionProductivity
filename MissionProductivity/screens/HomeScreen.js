@@ -16,6 +16,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { getAuth, signOut } from "firebase/auth";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import db from "../firebase.js";
+import NameList from "./display.js";
 // import * as firebase from 'firebase';
 
 const auth = getAuth();
@@ -63,23 +64,22 @@ const HomeScreen = (props) => {
       });
   };
 
-  const [data, setData] = useState();
-  const tempData = [];
+  // const [data, setData] = useState();
+  // const tempData = [];
 
-  const q = query(collection(db, "scores"), where('userID', '==', userId));
+  // const q = query(collection(db, "scores"), where('userID', '==', userId));
 
-    onSnapshot(q, (querySnapshot) => {
-    const results = querySnapshot.docs.map((doc) => {
-      const data = doc.data();
-      tempData.push(data.score);
-      return {
-        score: data.score,
-      };
-    });
-    // console.log(results);
-    // console.log(tempData);
-    setData(tempData);
-  });
+  //   onSnapshot(q, (querySnapshot) => {
+  //   const results = querySnapshot.docs.map((doc) => {
+  //     const data = doc.data();
+  //     tempData.push(data.score);
+  //     return {
+  //       score: data.score,
+  //     };
+  //   });
+
+  //   setData(tempData);
+  // });
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -114,10 +114,12 @@ const HomeScreen = (props) => {
 
 
           <Section title="Current Score">
-            {/* {tempData.map(score => <Text>{score}</Text>)} */}
+            {/* {tempData.map(score => <Text style={{color:'#000000'}}>{score}</Text>)} */}
             {/* <Text style={styles.sectionTitle}>{tempData[0]} </Text> */}
             {/* {tempData[0]} */}
+
           </Section>
+          <NameList />
           <Section title="Current Streak">7 Days</Section>
         </View>
       </ScrollView>
