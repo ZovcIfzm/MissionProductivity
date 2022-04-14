@@ -91,7 +91,6 @@ export default function NewActivityModal() {
               navigation.goBack(null);
             }
             else {
-              console.log(valid);
               Alert.alert('Error Creating Activity', 'Please try again',
               [
                 {

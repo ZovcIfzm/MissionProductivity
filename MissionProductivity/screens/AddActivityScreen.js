@@ -20,7 +20,6 @@ export default function AddActivity({ navigation }) {
   const [data, setData] = useState();
   const tempData = [];
   const { userId } = React.useContext(Context);
-  console.log(userId);
 
   //TODO: Update logged in user
   useEffect(() => {
@@ -49,8 +48,6 @@ export default function AddActivity({ navigation }) {
           }
         }
       }
-      console.log(results);
-      console.log(tempData);
       //Alphabetically order tempData
       tempData.sort(function(a,b) {
         return compareStrings(a.name, b.name);
@@ -102,8 +99,3 @@ function compareStrings(a, b) {
 
   return (a < b) ? -1 : (a > b) ? 1 : 0;
 }
-
-
-
-//TODO:
-//Figure our who is logged in (userID logic)
