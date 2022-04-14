@@ -1,4 +1,4 @@
-import { collection, addDoc, query, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, query, onSnapshot, where, setDoc, doc,   } from "firebase/firestore";
 import db from "../../firebase.js";
 import React from "react";
 
@@ -147,7 +147,7 @@ function titleCase(str) {
 }
 
 async function updateScores(score, username, ID) {
-  updateDoc(doc(db, "scores", ID), {
+  setDoc(doc(db, "scores", ID), {
     score: score,
     name: username,
     userID: ID,
@@ -166,16 +166,16 @@ async function updateTrophies(
   t_900,
   ID
 ) {
-  updateDoc(doc(db, "trophies", ID), {
-    100: t_100,
-    200: t_200,
-    300: t_300,
-    400: t_400,
-    500: t_500,
-    600: t_600,
-    700: t_700,
-    800: t_800,
-    900: t_900,
+  setDoc(doc(db, "trophies", ID), {
+    t_100: t_100,
+    t_200: t_200,
+    t_300: t_300,
+    t_400: t_400,
+    t_500: t_500,
+    t_600: t_600,
+    t_700: t_700,
+    t_800: t_800,
+    t_900: t_900,
   });
 }
 
