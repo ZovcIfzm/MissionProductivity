@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 
 import { Context } from "../context.js";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import db from "../firebase.js";
 // import TrophyDisplay from "../components/Achievements";
 
 export default function TrophyScreen({ navigation }) {
