@@ -115,10 +115,7 @@ const HomeScreen = (props) => {
           </TouchableOpacity>
 
           <Section title="Current Score">
-            {data.map((score) => (
-              <Text style={{ color: "#000000" }}>{score}</Text>
-            ))}
-            <Text style={styles.sectionTitle}>{data[0]} </Text> *{data[0]} *
+            <Text style={styles.sectionTitle}>{data[0]} </Text>
           </Section>
           <NameList />
           <Section title="Current Streak">7 Days</Section>
