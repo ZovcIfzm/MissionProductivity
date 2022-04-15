@@ -7,16 +7,12 @@ import {
   Text,
   View,
   Image,
-  Button,
   TouchableOpacity,
 } from "react-native";
 
 import { Context } from "../context.js";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { getAuth, signOut } from "firebase/auth";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
-import db from "../firebase.js";
-import NameList from "./display.js";
 // import * as firebase from 'firebase';
 
 const auth = getAuth();
@@ -48,7 +44,7 @@ const Section = ({ children, title }) => {
 };
 
 const HomeScreen = (props) => {
-  const { userName, userId } = React.useContext(Context);
+  const { userName, userScore } = React.useContext(Context);
   const backgroundStyle = {
     backgroundColor: Colors.lighter,
   };
@@ -63,25 +59,6 @@ const HomeScreen = (props) => {
         // An error happened.
       });
   };
-
-  const [data, setData] = useState([]);
-  const tempData = [];
-
-  useEffect(() => {
-    const q = query(collection(db, "scores"), where("userID", "==", userId));
-
-    onSnapshot(q, (querySnapshot) => {
-      const results = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        tempData.push(data.score);
-        return {
-          score: data.score,
-        };
-      });
-
-      setData(tempData);
-    });
-  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -115,9 +92,8 @@ const HomeScreen = (props) => {
           </TouchableOpacity>
 
           <Section title="Current Score">
-            <Text style={styles.sectionTitle}>{data[0]} </Text>
+            <Text style={styles.sectionTitle}>{userScore} </Text>
           </Section>
-          <NameList />
           <Section title="Current Streak">7 Days</Section>
         </View>
       </ScrollView>

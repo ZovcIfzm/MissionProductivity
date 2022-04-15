@@ -17,12 +17,12 @@ import db from "../firebase.js";
 import TrophyDisplay from "../components/Trophy";
 
 export default function TrophyScreen({ navigation }) {
-  const { userName, userId } = React.useContext(Context);
-
-  const [data, setData] = useState([]);
-  const tempData = {};
+  const { userName, userId, userTrophies, setUserTrophies } =
+    React.useContext(Context);
 
   useEffect(async () => {
+    const tempData = {};
+
     const docRef = doc(db, "trophies", userId);
     const docSnap = await getDoc(docRef);
 
@@ -37,15 +37,12 @@ export default function TrophyScreen({ navigation }) {
     tempData["t_800"] = data.t_800;
     tempData["t_900"] = data.t_900;
 
-    console.log("DEBUG data", [tempData]);
-    setData([tempData]);
+    setUserTrophies([tempData]);
   }, []);
   return (
     <View style={styles.container}>
       <View style={styles.separator} />
-
-      {/* <Text>Testing...</Text> */}
-      <TrophyDisplay trophies={data} />
+      <TrophyDisplay trophies={userTrophies} />
     </View>
   );
 }

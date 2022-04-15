@@ -17,13 +17,15 @@ export default function AddActivity({ navigation }) {
   //Inital Values
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  const [data, setData] = useState();
-  const tempData = [];
-  const { userId } = React.useContext(Context);
+  const { userId, userActivities, setUserActivities } =
+    React.useContext(Context);
 
-  //TODO: Update logged in user
   useEffect(() => {
-    const q = query(collection(db, "activities"), where('userId', 'in', ['-1', userId]));
+    const tempData = [];
+    const q = query(
+      collection(db, "activities"),
+      where("userId", "in", ["-1", userId])
+    );
     onSnapshot(q, (querySnapshot) => {
       const results = querySnapshot.docs.map((doc) => {
         const data = doc.data();
@@ -36,8 +38,7 @@ export default function AddActivity({ navigation }) {
         let found = false;
         if (tempData.length === 0) {
           tempData.push(results[i]);
-        }
-        else {
+        } else {
           for (let j = 0; j < tempData.length; j++) {
             if (results[i].name === tempData[j].name) {
               found = true;
@@ -49,10 +50,10 @@ export default function AddActivity({ navigation }) {
         }
       }
       //Alphabetically order tempData
-      tempData.sort(function(a,b) {
+      tempData.sort(function (a, b) {
         return compareStrings(a.name, b.name);
-      })
-      setData(tempData);
+      });
+      setUserActivities(tempData);
     });
   }, []);
 
@@ -64,20 +65,18 @@ export default function AddActivity({ navigation }) {
         clicked={clicked}
         setClicked={setClicked}
       />
-      {!data ? (
+      {!userActivities ? (
         <ActivityIndicator size="large" />
       ) : (
-        
-          <List
-            searchPhrase={searchPhrase}
-            data={data}
-            setClicked={setClicked}
-          />
-        
+        <List
+          searchPhrase={searchPhrase}
+          data={userActivities}
+          setClicked={setClicked}
+        />
       )}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {
@@ -97,5 +96,5 @@ function compareStrings(a, b) {
   a = a.toLowerCase();
   b = b.toLowerCase();
 
-  return (a < b) ? -1 : (a > b) ? 1 : 0;
+  return a < b ? -1 : a > b ? 1 : 0;
 }

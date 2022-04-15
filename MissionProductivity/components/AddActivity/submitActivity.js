@@ -1,15 +1,18 @@
-import { collection, addDoc, query, onSnapshot, where, setDoc, doc,   } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, getDoc } from "firebase/firestore";
 import db from "../../firebase.js";
-import React from "react";
 
 export async function submitActivity(
   name,
   category,
-  ID,
+  userId,
   hours,
   mins,
   rating,
-  userName
+  userName,
+  setUserScore,
+  userActivities,
+  setUserActivities,
+  setUserTrophies
 ) {
   hours = parseInt(hours);
   mins = parseInt(mins);
@@ -40,37 +43,15 @@ export async function submitActivity(
   //Find total minutes
   let minutes_total = minutes;
 
-  const mins_query = query(
-    collection(db, "activities"),
-    where("userId", "in", [ID])
-  );
-  onSnapshot(mins_query, (querySnapshot) => {
-    const results = querySnapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        mins: data.minutes,
-      };
-    });
-    for (let i = 0; i < results.length; i++) {
-      minutes_total += results[i];
-    }
-  });
-
   //Find Score
   let score_new = 0;
-  const score_query = query(
-    collection(db, "scores"),
-    where("userID", "==", ID)
-  );
-  onSnapshot(score_query, (querySnapshot) => {
-    const results2 = querySnapshot.docs.map((doc) => {
-      const data2 = doc.data();
-      return {
-        score: data2.score,
-      };
-    });
-    score_new = results2;
-  });
+
+  const docRef = doc(db, "scores", userId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    score_new = data.score;
+  }
 
   //Write new score
   score_new = score_new + 0.5 * minutes_total;
@@ -113,8 +94,34 @@ export async function submitActivity(
   if (score_new > 900) {
     t_900 = true;
   }
+
+  setUserScore(score_new);
+  setUserActivities([
+    ...userActivities,
+    {
+      category: category,
+      minutes: minutes,
+      name: name,
+      rating: rating,
+      userId: userId,
+    },
+  ]);
+
+  setUserTrophies([
+    {
+      t_100: t_100,
+      t_200: t_200,
+      t_300: t_300,
+      t_400: t_400,
+      t_500: t_500,
+      t_600: t_600,
+      t_700: t_700,
+      t_800: t_800,
+      t_900: t_900,
+    },
+  ]);
   await Promise.all([
-    updateScores(score_new, userName, ID),
+    updateScores(score_new, userName, userId),
     updateTrophies(
       t_100,
       t_200,
@@ -125,13 +132,13 @@ export async function submitActivity(
       t_700,
       t_800,
       t_900,
-      ID
+      userId
     ),
-    updateActivity(category, minutes_total, name, rating, ID),
+    updateActivity(category, minutes_total, name, rating, userId),
   ]);
 }
 
-export function checkInputs(name, category, ID, hours, mins, rating) {
+export function checkInputs(name, category, userId, hours, mins, rating) {
   if ((!(hours === 0) || !(mins === 0)) && name && !(category === "Category")) {
     return true;
   }
@@ -146,11 +153,11 @@ function titleCase(str) {
   return str.join(" ");
 }
 
-async function updateScores(score, username, ID) {
-  setDoc(doc(db, "scores", ID), {
+async function updateScores(score, username, userId) {
+  setDoc(doc(db, "scores", userId), {
     score: score,
     name: username,
-    userID: ID,
+    userID: userId,
   });
 }
 
@@ -164,9 +171,9 @@ async function updateTrophies(
   t_700,
   t_800,
   t_900,
-  ID
+  userId
 ) {
-  setDoc(doc(db, "trophies", ID), {
+  setDoc(doc(db, "trophies", userId), {
     t_100: t_100,
     t_200: t_200,
     t_300: t_300,
@@ -179,12 +186,12 @@ async function updateTrophies(
   });
 }
 
-async function updateActivity(category, minutes, name, rating, ID) {
+async function updateActivity(category, minutes, name, rating, userId) {
   addDoc(collection(db, "activities"), {
     category: category,
     minutes: minutes,
     name: name,
     rating: rating,
-    userId: ID,
+    userID: userId,
   });
 }

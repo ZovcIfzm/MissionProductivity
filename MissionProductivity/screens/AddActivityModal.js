@@ -31,7 +31,14 @@ const AddActivityModal = (props) => {
     rating: 0,
   };
   const navigation = useNavigation();
-  const { userId, userName } = React.useContext(Context);
+  const {
+    userId,
+    userName,
+    setUserScore,
+    userActivities,
+    setUserActivities,
+    setUserTrophies,
+  } = React.useContext(Context);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -95,7 +102,11 @@ const AddActivityModal = (props) => {
                 _values.hours,
                 _values.mins,
                 _values.rating,
-                userName
+                userName,
+                setUserScore,
+                userActivities,
+                setUserActivities,
+                setUserTrophies
               );
               navigation.goBack(null);
             } else {
