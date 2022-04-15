@@ -34,6 +34,24 @@ const Provider = (props) => {
     },
   ]);
 
+  const resetSavedUser = () => {
+    setUserScore(0);
+    setUserActivities([]);
+    setUserTrophies([
+      {
+        t_100: false,
+        t_200: false,
+        t_300: false,
+        t_400: false,
+        t_500: false,
+        t_600: false,
+        t_700: false,
+        t_800: false,
+        t_900: false,
+      },
+    ]);
+  };
+
   //Get all users' scores (top 10)
   useEffect(() => {
     const q = query(collection(db, "scores"), orderBy("score", "desc"));
@@ -57,7 +75,7 @@ const Provider = (props) => {
       const data = docSnap.data();
       setUserScore(data.score);
     }
-  }, []);
+  }, [user]);
 
   return (
     <Context.Provider
@@ -77,6 +95,7 @@ const Provider = (props) => {
         setUserActivities: setUserActivities,
         userTrophies: userTrophies,
         setUserTrophies: setUserTrophies,
+        resetSavedUser: resetSavedUser,
       }}
     >
       {props.children}

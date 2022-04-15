@@ -65,8 +65,14 @@ const LoginScreen = (props) => {
   const [password, onChangePassword] = React.useState("");
 
   const [initializing, setInitializing] = useState(true);
-  const { setUser, setUserId, setUserEmail, setUserName, userName } =
-    React.useContext(Context);
+  const {
+    setUser,
+    setUserId,
+    setUserEmail,
+    setUserName,
+    userName,
+    resetSavedUser,
+  } = React.useContext(Context);
 
   const [signingUp, setSigningUp] = useState(false);
 
@@ -75,6 +81,7 @@ const LoginScreen = (props) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
+        resetSavedUser();
         setUser(user);
         setUserId(user["uid"]);
         setUserEmail(user["email"]);
@@ -88,7 +95,8 @@ const LoginScreen = (props) => {
       }
       if (initializing) setInitializing(false);
     });
-  });
+    console.log("DEBUG initalizing", initializing);
+  }, []);
 
   if (initializing) return null;
 
