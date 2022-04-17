@@ -74,7 +74,7 @@ const HomeScreen = () => {
         >
           <Section title="Tutorial" style={{fontSize: 5}} >
             1) Our app contains four main tabs and features! You just left the main screen, this is where
-            you can get a quick rundown of your score and your current streak!{"\n"}{"\n"}
+            you can get a quick rundown of your score!{"\n"}{"\n"}
 
             2) The next tab is the leaderboard! This is where you can see your score and how it compares to your peers!
             Check the ranking and try to reach first place. That way you can fill up your trophy cabinet and get closer
@@ -84,8 +84,8 @@ const HomeScreen = () => {
             you have achieved thus far.{"\n"}{"\n"}
 
             4) Finally comes one of the most important tabs. The add activity tab! This is where you can go and add new 
-            activities that will be calculated into your score. The higher your streak, the greater the score! Try not 
-            to miss a day to stay ahead!{"\n"}{"\n"}
+            activities that will be calculated into your score. The longer the activity, the greater the score! Keep logging 
+            activities to stay ahead!{"\n"}{"\n"}
 
           </Section>
         </View>
