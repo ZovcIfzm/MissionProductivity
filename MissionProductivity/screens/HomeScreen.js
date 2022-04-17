@@ -94,7 +94,6 @@ const HomeScreen = (props) => {
           <Section title="Current Score">
             <Text style={styles.sectionTitle}>{userScore} </Text>
           </Section>
-          <Section title="Current Streak">7 Days</Section>
         </View>
       </ScrollView>
     </SafeAreaView>
